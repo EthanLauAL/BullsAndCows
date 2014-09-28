@@ -26,8 +26,8 @@ func main() {
 
 	//测试
 	a,b := puzzle.Try(posible[0])
-	if a == 4 && b == 0 {
-		fmt.Println("OK")
+	if a == N && b == 0 {
+		//fmt.Println("OK")
 	} else {
 		fmt.Println("Wrong Answer")
 	}

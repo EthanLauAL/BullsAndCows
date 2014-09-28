@@ -12,7 +12,14 @@ func main() {
 	posible := getAll()
 	
 	for i:=1 ; true ; i++ {
-		try := getBestTry(posible)
+		var try [N]int
+		if i == 1 {
+			for i,_ := range try {
+				try[i] = i % min(N, MaxNum-MinNum+1) + MinNum
+			}
+		} else {
+			try = getBestTry(posible)
+		}
 		a,b := puzzle.Try(try)
 		posible = filter(try, posible, a, b)
 		fmt.Println(i, "Try:",try, "-", a, "A", b, "B",

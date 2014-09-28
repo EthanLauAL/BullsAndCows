@@ -16,7 +16,7 @@ func getBestTry(posible [][N]int) [N]int {
 		try [N]int
 		entropy float64
 	}
-	channel := make(chan TryResult, 1)
+	channel := make(chan TryResult, MaxProc)
 	exit := make(chan int)
 
 	go func(){

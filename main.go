@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	runtime.GOMAXPROCS(runtime.NumCPU() * 2)
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	puzzle := NewPuzzle()
 	posible := getAll()
@@ -26,6 +26,9 @@ func main() {
 			"Remains:", len(posible))
 		if len(posible) <= 1 {
 			break
+		}
+		if len(posible) <= 8 {
+			fmt.Println("Remains:",posible)
 		}
 	}
 

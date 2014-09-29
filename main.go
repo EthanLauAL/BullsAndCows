@@ -19,13 +19,13 @@ func main() {
 		}
 	}
 
+	posible := getAll(hard)
 	var puzzle Puzzle
 	if scanning {
 		puzzle = NewScanningPuzzle()
 	} else {
-		puzzle = NewRandomicPuzzle()
+		puzzle = NewRandomicPuzzle(posible)
 	}
-	posible := getAll(hard)
 	
 	for i:=1 ; true ; i++ {
 		var try [N]int

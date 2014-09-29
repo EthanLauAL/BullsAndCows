@@ -44,10 +44,10 @@ func scoreAB(try, secret [N]int) int {
 }
 
 //全空间遍历
-func traverse(easy bool, f func([N]int)) {
+func traverse(repeat bool, f func([N]int)) {
 	var v [N]int
 	for {
-		if !easy || !hasRepeatNum(v) {
+		if repeat || !hasRepeatNum(v) {
 			f(v)
 		}
 		v[0]++
@@ -65,9 +65,9 @@ func traverse(easy bool, f func([N]int)) {
 }
 
 //获取整个解空间集合
-func getAll(easy bool) [][N]int {
+func getAll(repeat bool) [][N]int {
 	result := make([][N]int, 0)
-	traverse(easy, func(posible [N]int) {
+	traverse(repeat, func(posible [N]int) {
 		result = append(result, posible)
 	})
 	return result

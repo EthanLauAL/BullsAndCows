@@ -9,10 +9,10 @@ import (
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	var easy, scanning bool
+	var hard, scanning bool
 	for _,s := range os.Args {
-		if s == "easy" {
-			easy = true
+		if s == "hard" {
+			hard = true
 		}
 		if s == "scan" {
 			scanning = true
@@ -25,7 +25,7 @@ func main() {
 	} else {
 		puzzle = NewRandomicPuzzle()
 	}
-	posible := getAll(easy)
+	posible := getAll(hard)
 	
 	for i:=1 ; true ; i++ {
 		var try [N]int
@@ -34,7 +34,7 @@ func main() {
 				try[i] = i % min(N, MaxNum-MinNum+1) + MinNum
 			}
 		} else {
-			try = getBestTry(easy, posible)
+			try = getBestTry(hard, posible)
 		}
 		a,b := puzzle.Try(try)
 		posible = filter(try, posible, a, b)

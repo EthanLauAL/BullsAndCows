@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	MaxProc = 16
+	MaxProc = 256
 )
 
 //获取最佳（熵期望最大）的猜测（并发执行）

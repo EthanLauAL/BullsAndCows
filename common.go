@@ -44,10 +44,12 @@ func scoreAB(try, secret [N]int) int {
 }
 
 //全空间遍历
-func traverse(f func([N]int)) {
+func traverse(easy bool, f func([N]int)) {
 	var v [N]int
 	for {
-		f(v)
+		if !easy || !hasRepeatNum(v) {
+			f(v)
+		}
 		v[0]++
 		for i,_ := range v {
 			if v[i] <= MaxNum {
@@ -63,12 +65,24 @@ func traverse(f func([N]int)) {
 }
 
 //获取整个解空间集合
-func getAll() [][N]int {
+func getAll(easy bool) [][N]int {
 	result := make([][N]int, 0)
-	traverse(func(posible [N]int) {
+	traverse(easy, func(posible [N]int) {
 		result = append(result, posible)
 	})
 	return result
+}
+
+//是否有重复的数字
+func hasRepeatNum(arr [N]int) bool {
+	for i,_ := range arr {
+		for j:=i+1 ; j<len(arr) ; j++ {
+			if arr[i] == arr[j] {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 func min(x,y int) int {

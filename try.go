@@ -9,7 +9,7 @@ const (
 )
 
 //获取最佳（熵期望最大）的猜测（并发执行）
-func getBestTry(posible [][N]int) [N]int {
+func getBestTry(easy bool, posible [][N]int) [N]int {
 	var result [N]int
 	var maxMeanEntropy float64
 	type TryResult struct {
@@ -37,7 +37,7 @@ func getBestTry(posible [][N]int) [N]int {
 	for i:=0 ; i<MaxProc ; i++ {
 		running <- 1
 	}
-	traverse(func(try [N]int) {
+	traverse(easy, func(try [N]int) {
 		<- running
 		go func() {
 			channel <- TryResult{

@@ -2,14 +2,30 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"runtime"
 )
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	puzzle := NewPuzzle()
-	posible := getAll()
+	var easy, scanning bool
+	for _,s := range os.Args {
+		if s == "easy" {
+			easy = true
+		}
+		if s == "scan" {
+			scanning = true
+		}
+	}
+
+	var puzzle Puzzle
+	if scanning {
+		puzzle = NewScanningPuzzle()
+	} else {
+		puzzle = NewRandomicPuzzle()
+	}
+	posible := getAll(easy)
 	
 	for i:=1 ; true ; i++ {
 		var try [N]int
@@ -18,7 +34,7 @@ func main() {
 				try[i] = i % min(N, MaxNum-MinNum+1) + MinNum
 			}
 		} else {
-			try = getBestTry(posible)
+			try = getBestTry(easy, posible)
 		}
 		a,b := puzzle.Try(try)
 		posible = filter(try, posible, a, b)
@@ -32,13 +48,9 @@ func main() {
 		}
 	}
 
-	fmt.Println("Got it:", posible[0])
-
-	//测试
-	a,b := puzzle.Try(posible[0])
-	if a == N && b == 0 {
-		//fmt.Println("OK")
+	if len(posible) == 1 {
+		fmt.Println("Got it:", posible[0])
 	} else {
-		fmt.Println("Wrong Answer")
+		fmt.Println("Somthing wrong...")
 	}
 }
